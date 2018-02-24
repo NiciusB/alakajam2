@@ -17,7 +17,7 @@ export default {
   },
   data () {
     return {
-      preGame: true
+      preGame: false // skip pregame for now
     }
   },
   methods: {
@@ -30,16 +30,19 @@ export default {
 </script>
 
 <style lang="scss">
-body {
+body, html {
   margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  width: 100%;
+  height: 100%;
 }
 h1, h2 {
   font-weight: normal;
