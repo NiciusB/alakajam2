@@ -21,11 +21,15 @@ class UI {
           this.veil.value += 0.03
           if (this.veil.value >= 1.5) {
             this.game.day++
-            this.game.newLevel()
+            if (this.game.day <= 3) this.game.newLevel()
+            else this.startVeil('victory')
           }
           break
         case 'lose':
           this.veil.value += 0.03
+          break
+        case 'victory':
+          this.veil.value += 0.02
           break
       }
       this.drawGameVeil()
@@ -45,7 +49,10 @@ class UI {
     this.ctx.fillStyle = '#a1a1a1'
     this.ctx.font = '16px Helvetica'
     if (this.veil.status === 'lose' && this.veil.value > 0.8) {
-      this.ctx.fillText('You are dead. Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2)
+      this.ctx.fillText(`You are dead. You got to day ${this.game.day}`, this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 - 15)
+      this.ctx.fillText('Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 + 15)
+    } else if (this.veil.status === 'victory' && this.veil.value > 0.8) {
+      this.ctx.fillText('Congratulations. You escaped the maze. Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2)
     }
     this.ctx.restore()
   }

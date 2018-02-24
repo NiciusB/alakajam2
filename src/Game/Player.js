@@ -54,11 +54,25 @@ class Player {
   loseEnergy (howMuch = 1) {
     this.energy -= howMuch
     if (this.energy < 0) this.game.UI.playerDeath()
-    if (this.energy <= 100) this.feelings = 'You look around trying to understand where you are'
-    if (this.energy <= 80) this.feelings = 'You are starting to get tired'
-    if (this.energy <= 70) this.feelings = 'There must be a way out'
-    if (this.energy <= 50) this.feelings = 'You are feeling really sleepy'
-    if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
+    if (this.game.day === 1) {
+      if (this.energy <= 100) this.feelings = 'You look around trying to understand where you are'
+      if (this.energy <= 80) this.feelings = 'You are starting to get tired'
+      if (this.energy <= 70) this.feelings = 'There must be a way out'
+      if (this.energy <= 50) this.feelings = 'You are feeling really sleepy'
+      if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
+    } else if (this.game.day === 2) {
+      if (this.energy <= 100) this.feelings = 'You look around trying to understand where you are'
+      if (this.energy <= 80) this.feelings = 'You are starting to get tired'
+      if (this.energy <= 70) this.feelings = 'There must be a way out'
+      if (this.energy <= 50) this.feelings = 'You are feeling really sleepy'
+      if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
+    } else if (this.game.day === 3) {
+      if (this.energy <= 100) this.feelings = 'You look around trying to understand where you are'
+      if (this.energy <= 80) this.feelings = 'You are starting to get tired'
+      if (this.energy <= 70) this.feelings = 'There must be a way out'
+      if (this.energy <= 50) this.feelings = 'You are feeling really sleepy'
+      if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
+    }
   }
   getCurrentCell () {
     return this.game.mazeManager.get(this.x, this.y)
