@@ -49,7 +49,7 @@ class UI {
     this.ctx.fillStyle = '#a1a1a1'
     this.ctx.font = '16px Helvetica'
     if (this.veil.status === 'lose' && this.veil.value > 0.8) {
-      this.ctx.fillText(`You are dead. You got to day ${this.game.day}`, this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 - 15)
+      this.ctx.fillText(`You died on day ${this.game.day}`, this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 - 15)
       this.ctx.fillText('Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 + 15)
     } else if (this.veil.status === 'victory' && this.veil.value > 0.8) {
       this.ctx.fillText('Congratulations. You escaped the maze. Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2)
@@ -57,7 +57,7 @@ class UI {
     this.ctx.restore()
   }
   drawFog () {
-    var grd = this.ctx.createRadialGradient(this.player.centeredX, this.player.centeredY, 20, this.player.centeredX, this.player.centeredY, 150)
+    var grd = this.ctx.createRadialGradient(this.player.centeredX, this.player.centeredY, 20, this.player.centeredX, this.player.centeredY, this.player.visionRange)
     grd.addColorStop(0, 'transparent')
     grd.addColorStop(1, 'rgba(25,25,25,1)')
     this.ctx.fillStyle = grd

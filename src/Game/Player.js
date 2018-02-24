@@ -53,6 +53,7 @@ class Player {
   }
   loseEnergy (howMuch = 1) {
     this.energy -= howMuch
+    this.visionRange = 100 + this.energy / 1.5
     if (this.energy < 0) this.game.UI.playerDeath()
     if (this.game.day === 1) {
       if (this.energy <= 100) this.feelings = 'You look around trying to understand where you are'
