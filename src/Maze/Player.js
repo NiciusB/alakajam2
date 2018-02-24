@@ -18,7 +18,7 @@ class Player {
   drawBody () {
     this.ctx.save()
     this.ctx.fillStyle = '#00f'
-    this.ctx.fillRect(this.centeredX, this.centeredY, this.size, this.size)
+    this.ctx.fillRect(this.centeredX - this.size / 2, this.centeredY - this.size / 2, this.size, this.size)
     this.ctx.restore()
   }
   smoothlyMove () {
@@ -43,7 +43,7 @@ class Player {
     return this.mazeManager.get(this.x, this.y)
   }
   getCenteredPos (pos) {
-    return pos * Maze.Cell.size + Maze.Cell.size / 2 - this.size / 2
+    return pos * Maze.Cell.size + Maze.Cell.size / 2
   }
 
   static get size () {

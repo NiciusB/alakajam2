@@ -29,7 +29,7 @@ class UI {
     this.ctx.restore()
   }
   drawFog () {
-    var grd = this.ctx.createRadialGradient(this.player.centeredX, this.player.centeredY, 120, this.player.centeredX, this.player.centeredY, 150)
+    var grd = this.ctx.createRadialGradient(this.player.centeredX, this.player.centeredY, 20, this.player.centeredX, this.player.centeredY, 150)
     grd.addColorStop(0, 'transparent')
     grd.addColorStop(1, 'rgba(25,25,25,0.95)')
     this.ctx.fillStyle = grd

@@ -20,11 +20,11 @@ class FinishPoint {
   drawBody () {
     this.ctx.save()
     this.ctx.fillStyle = '#f00'
-    this.ctx.fillRect(this.getCenteredPos(this.x), this.getCenteredPos(this.y), this.size, this.size)
+    this.ctx.fillRect(this.getCenteredPos(this.x) - this.size / 2, this.getCenteredPos(this.y) - this.size / 2, this.size, this.size)
     this.ctx.restore()
   }
   getCenteredPos (pos) {
-    return pos * this.game.Cell.size + this.game.Cell.size / 2 - this.size / 2
+    return pos * this.game.Cell.size + this.game.Cell.size / 2
   }
   getRandomPoint () {
     const randomPoint = {
