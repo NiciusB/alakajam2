@@ -14,7 +14,7 @@ class FinishPoint {
   draw () {
     this.drawBody()
     if (this.x === this.player.x && this.y === this.player.y) {
-      this.game.UI.gameFinished()
+      this.game.UI.dayFinished()
     }
   }
   drawBody () {
@@ -32,7 +32,7 @@ class FinishPoint {
       y: this.game.Rand.randFromTo(0, this.mazeManager.height)
     }
     const distance = this.player.getCurrentCell().distanceToCell(this.mazeManager.get(randomPoint))
-    if (distance < 50 || distance > 200) return this.getRandomPoint()
+    if (distance < 40 || distance > 80) return this.getRandomPoint()
     return randomPoint
   }
 }

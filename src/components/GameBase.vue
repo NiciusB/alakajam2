@@ -1,7 +1,9 @@
 <template>
   <div class="hello">
-    <div id="info">
-      <span>Day: {{game.day}}</span>
+    <div id="info" v-if="game">
+      <span>Day {{game.day}}.</span>
+      <span>{{game.player.feelings}}</span>
+      <span class="seed">Seed: {{game.Rand.seed}}</span>
     </div>
     <canvas id="gameCanvas"></canvas>
   </div>
@@ -16,7 +18,7 @@ export default {
   },
   data () {
     return {
-      game: {}
+      game: false
     }
   }
 }
@@ -33,13 +35,21 @@ export default {
   flex-direction: column;
 }
 #info {
-  width: 760px;
+  width: 560px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.1);
+  color: rgb(200, 200, 200);
+  background: rgb(25, 25, 25);
+  line-height: 40px;
+  padding: 0 0.5em;
+  box-sizing: border-box;
+  .seed {
+    float: right;
+    font-size: 0.6em;
+  }
 }
 #gameCanvas {
-  width: 760px;
-  height: 720px;
+  width: 560px;
+  height: 560px;
   background: rgba(255, 255, 255, 0.1);
 }
 </style>

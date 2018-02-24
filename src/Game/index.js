@@ -15,13 +15,18 @@ class Game {
       ghost: new Image()
     }
     for (let key in this.sprites) this.sprites[key].src = `/static/${key}.png`
-    this.day = 1
-    this.newLevel()
+    document.addEventListener('keydown', (e) => { this.keyDown(e) }, { passive: true })
+    this.newGame()
     this.gameLoop()
+  }
+  newGame () {
+    this.day = 1
+    this.Rand = new Rand()
+    this.newLevel()
   }
   newLevel () {
     this.loadingNewLevel = true
-    this.Rand = new Rand()
+    this.keyDownCallbacks = []
     this.mazeManager = new MazeManager(this, this.canvas.width, this.canvas.height)
     this.player = new MazePlayer(this, Math.round(this.mazeManager.width / 2) - 1, Math.round(this.mazeManager.height / 2) - 1)
     this.finishPoint = new FinishPoint(this, this.mazeManager, this.player)
@@ -35,6 +40,12 @@ class Game {
     this.player.draw()
     this.UI.draw()
     window.requestAnimationFrame(() => this.gameLoop())
+  }
+  onKeyDown (callback) {
+    this.keyDownCallbacks.push(callback)
+  }
+  keyDown (e) {
+    this.keyDownCallbacks.forEach(val => { val(e) })
   }
 }
 

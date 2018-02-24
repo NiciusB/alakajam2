@@ -5,6 +5,8 @@ class Player {
     this.game = game
     this.ctx = this.game.ctx
     this.size = this.constructor.size
+    this.energy = 100
+    this.loseEnergy(0)
     this.x = x
     this.y = y
     this.centeredX = this.getCenteredPos(this.x)
@@ -13,7 +15,7 @@ class Player {
       val: 0,
       dir: 'up'
     }
-    document.addEventListener('keydown', (e) => { this.keyDown(e) })
+    this.game.onKeyDown(e => { this.keyDown(e) })
   }
   draw () {
     this.smoothlyMove()
@@ -34,16 +36,29 @@ class Player {
   keyDown (e) {
     if ((e.key === 'ArrowDown' || e.code === 'KeyS') && this.getCurrentCell().canSouth) {
       this.y++
+      this.loseEnergy()
     }
     if ((e.key === 'ArrowUp' || e.code === 'KeyW') && this.getCurrentCell().canNorth) {
       this.y--
+      this.loseEnergy()
     }
     if ((e.key === 'ArrowLeft' || e.code === 'KeyA') && this.getCurrentCell().canWest) {
       this.x--
+      this.loseEnergy()
     }
     if ((e.key === 'ArrowRight' || e.code === 'KeyD') && this.getCurrentCell().canEast) {
       this.x++
+      this.loseEnergy()
     }
+  }
+  loseEnergy (howMuch = 1) {
+    this.energy -= howMuch
+    if (this.energy < 0) this.game.UI.playerDeath()
+    if (this.energy <= 100) this.feelings = 'You look around trying to understand where you are'
+    if (this.energy <= 80) this.feelings = 'You are starting to get tired'
+    if (this.energy <= 70) this.feelings = 'There must be a way out'
+    if (this.energy <= 50) this.feelings = 'You are feeling really sleepy'
+    if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
   }
   getCurrentCell () {
     return this.game.mazeManager.get(this.x, this.y)
