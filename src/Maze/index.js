@@ -8,6 +8,7 @@ import FinishPoint from './FinishPoint'
 export default {
   Cell: MazeCell,
   gameLoop () {
+    if (this.loadingNewLevel) return
     this.mazeManager.draw()
     this.player.draw()
     this.finishPoint.draw()
@@ -15,16 +16,21 @@ export default {
     window.requestAnimationFrame(() => this.gameLoop())
   },
   init () {
-    var canvas = document.getElementById('game')
-    canvas.width = canvas.clientWidth
-    canvas.height = canvas.clientHeight
-    var ctx = canvas.getContext('2d')
-    ctx.imageSmoothingEnabled = false
-    this.Rand = new Rand()
-    this.mazeManager = new MazeManager(ctx)
-    this.player = new MazePlayer(this.mazeManager, this.Rand.randFromTo(0, this.mazeManager.width), this.Rand.randFromTo(0, this.mazeManager.height))
-    this.finishPoint = new FinishPoint(this.mazeManager, this.player)
-    this.UI = new UI(this.mazeManager, this.player)
+    this.canvas = document.getElementById('game')
+    this.canvas.width = this.canvas.clientWidth
+    this.canvas.height = this.canvas.clientHeight
+    this.ctx = this.canvas.getContext('2d')
+    this.ctx.imageSmoothingEnabled = false
+    this.newLevel()
     this.gameLoop()
+  },
+  newLevel () {
+    this.loadingNewLevel = true
+    this.Rand = new Rand()
+    this.mazeManager = new MazeManager(this, this.ctx)
+    this.player = new MazePlayer(this.mazeManager, this.Rand.randFromTo(0, this.mazeManager.width), this.Rand.randFromTo(0, this.mazeManager.height))
+    this.finishPoint = new FinishPoint(this, this.mazeManager, this.player)
+    this.UI = new UI(this.mazeManager, this.player)
+    this.loadingNewLevel = false
   }
 }

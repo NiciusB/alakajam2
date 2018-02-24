@@ -22,8 +22,8 @@ class Player {
     this.ctx.restore()
   }
   smoothlyMove () {
-    this.centeredX = this.getCenteredPos(this.x) * 0.2 + this.centeredX * 0.8
-    this.centeredY = this.getCenteredPos(this.y) * 0.2 + this.centeredY * 0.8
+    this.centeredX = this.getCenteredPos(this.x) * 0.3 + this.centeredX * 0.7
+    this.centeredY = this.getCenteredPos(this.y) * 0.3 + this.centeredY * 0.7
   }
   keyDown (e) {
     if ((e.key === 'ArrowDown' || e.code === 'KeyS') && this.mazeManager.get(this.x, this.y).canSouth) {
