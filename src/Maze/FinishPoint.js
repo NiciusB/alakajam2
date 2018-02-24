@@ -31,17 +31,8 @@ class FinishPoint {
       x: this.game.Rand.randFromTo(0, this.mazeManager.width),
       y: this.game.Rand.randFromTo(0, this.mazeManager.height)
     }
-    /*
-    const solved = mazeSolver({
-      maze: this.game.mazeManager._maze,
-      start: randomPoint,
-      end: {
-        x: this.game.player.x,
-        y: this.game.player.y
-      }
-    })
-    console.log(solved)
-    */
+    const distance = this.player.getCurrentCell().distanceToCell(this.mazeManager.get(randomPoint))
+    if (distance < 50 || distance > 200) return this.getRandomPoint()
     return randomPoint
   }
 }

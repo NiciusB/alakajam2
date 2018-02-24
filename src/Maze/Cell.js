@@ -1,7 +1,9 @@
+import AStar from './AStar'
+
 class MazeCell {
-  constructor (mazeBuilder, x, y, internalMazeCell) {
-    this.mazeBuilder = mazeBuilder
-    this.ctx = this.mazeBuilder.ctx
+  constructor (game, x, y, internalMazeCell) {
+    this.game = game
+    this.ctx = this.game.ctx
     this.x = x
     this.y = y
     this.canEast = !internalMazeCell.right
@@ -10,17 +12,24 @@ class MazeCell {
     this.canSouth = !internalMazeCell.bottom
     this.size = this.constructor.size
   }
+  toString () {
+    return `${this.x}.${this.y}`
+  }
   east () {
-    return this.canEast ? this.get(this.x + 1, this.y) : this
+    return this.canEast ? this.game.mazeManager.get(this.x + 1, this.y) : this
   }
   west () {
-    return this.canWest ? this.get(this.x - 1, this.y) : this
+    return this.canWest ? this.game.mazeManager.get(this.x - 1, this.y) : this
   }
   north () {
-    return this.canNorth ? this.get(this.x, this.y - 1) : this
+    return this.canNorth ? this.game.mazeManager.get(this.x, this.y - 1) : this
   }
   south () {
-    return this.canSouth ? this.get(this.x, this.y + 1) : this
+    return this.canSouth ? this.game.mazeManager.get(this.x, this.y + 1) : this
+  }
+  distanceToCell (otherCell) {
+    const search = new AStar().cellToCell(this, otherCell)
+    return search.path.length
   }
   draw () {
     this.drawBody()

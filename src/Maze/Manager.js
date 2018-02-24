@@ -12,15 +12,19 @@ class MazeManager {
     for (var col = 0; col < this.height; col++) {
       this.maze[col] = []
       for (var row = 0; row < this.width; row++) {
-        this.maze[col][row] = new this.game.Cell(this, row, col, this._maze[col][row])
+        this.maze[col][row] = new this.game.Cell(this.game, row, col, this._maze[col][row])
       }
     }
   }
   randFromTo (from, to) {
     return Math.floor(this.rand() * to) + from
   }
-  get (row, col) {
-    return this.maze[col][row]
+  get (arg1, arg2 = false) {
+    if (arg2 === false) {
+      return this.maze[arg1.y][arg1.x]
+    } else {
+      return this.maze[arg2][arg1]
+    }
   }
   draw () {
     this.drawMaze()

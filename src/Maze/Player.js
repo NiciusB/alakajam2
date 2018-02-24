@@ -26,18 +26,21 @@ class Player {
     this.centeredY = this.getCenteredPos(this.y) * 0.3 + this.centeredY * 0.7
   }
   keyDown (e) {
-    if ((e.key === 'ArrowDown' || e.code === 'KeyS') && this.mazeManager.get(this.x, this.y).canSouth) {
+    if ((e.key === 'ArrowDown' || e.code === 'KeyS') && this.getCurrentCell().canSouth) {
       this.y++
     }
-    if ((e.key === 'ArrowUp' || e.code === 'KeyW') && this.mazeManager.get(this.x, this.y).canNorth) {
+    if ((e.key === 'ArrowUp' || e.code === 'KeyW') && this.getCurrentCell().canNorth) {
       this.y--
     }
-    if ((e.key === 'ArrowLeft' || e.code === 'KeyA') && this.mazeManager.get(this.x, this.y).canWest) {
+    if ((e.key === 'ArrowLeft' || e.code === 'KeyA') && this.getCurrentCell().canWest) {
       this.x--
     }
-    if ((e.key === 'ArrowRight' || e.code === 'KeyD') && this.mazeManager.get(this.x, this.y).canEast) {
+    if ((e.key === 'ArrowRight' || e.code === 'KeyD') && this.getCurrentCell().canEast) {
       this.x++
     }
+  }
+  getCurrentCell () {
+    return this.mazeManager.get(this.x, this.y)
   }
   getCenteredPos (pos) {
     return pos * Maze.Cell.size + Maze.Cell.size / 2 - this.size / 2
