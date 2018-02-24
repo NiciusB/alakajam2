@@ -1,4 +1,4 @@
-import Maze from './index'
+import MazeCell from './Cell'
 
 class Player {
   constructor (game, x, y) {
@@ -49,7 +49,7 @@ class Player {
     return this.game.mazeManager.get(this.x, this.y)
   }
   getCenteredPos (pos) {
-    return pos * Maze.Cell.size + Maze.Cell.size / 2
+    return pos * MazeCell.size + MazeCell.size / 2
   }
 
   static get size () {

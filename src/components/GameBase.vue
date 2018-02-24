@@ -1,19 +1,22 @@
 <template>
   <div class="hello">
-    <canvas id="game"></canvas>
+    <div id="info">
+      <span>Day: {{game.day}}</span>
+    </div>
+    <canvas id="gameCanvas"></canvas>
   </div>
 </template>
 
 <script>
-import Maze from '@/Maze'
+import Game from '@/Game'
 
 export default {
   mounted () {
-    Maze.init()
+    this.game = new Game()
   },
   data () {
     return {
-      game: false
+      game: {}
     }
   }
 }
@@ -27,10 +30,16 @@ export default {
   justify-content: center;
   align-items: center;
   background: #333;
+  flex-direction: column;
 }
-#game {
+#info {
   width: 760px;
-  height: 760px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+}
+#gameCanvas {
+  width: 760px;
+  height: 720px;
   background: rgba(255, 255, 255, 0.1);
 }
 </style>

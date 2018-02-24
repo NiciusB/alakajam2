@@ -1,10 +1,8 @@
-import Maze from './index'
-
 class UI {
-  constructor (mazeManager, player) {
-    this.mazeManager = mazeManager
-    this.player = player
-    this.ctx = this.mazeManager.ctx
+  constructor (game) {
+    this.game = game
+    this.player = this.game.player
+    this.ctx = this.game.ctx
     this.veil = {
       value: 1,
       status: 'intro' // 'intro' or 'outro'
@@ -12,20 +10,20 @@ class UI {
   }
   draw () {
     this.drawFog()
-    this.drawCoordinates()
+    this.drawTopLeftText()
     if (this.veil.value > 0) {
       this.veil.value += 0.03 * (this.veil.status === 'intro' ? -1 : 1)
-      if (this.veil.status === 'outro' && this.veil.value >= 1.5) Maze.newLevel()
+      if (this.veil.status === 'outro' && this.veil.value >= 1.5) this.game.newLevel()
       this.drawGameVeil()
     }
   }
-  drawCoordinates () {
+  drawTopLeftText () {
     this.ctx.save()
     this.ctx.textAlign = 'left'
     this.ctx.textBaseline = 'middle'
-    this.ctx.fillStyle = '#f1f1f1'
+    this.ctx.fillStyle = 'rgba(255, 255, 255, 0.5)'
     this.ctx.font = '14px Helvetica'
-    this.ctx.fillText(`Seed: ${Maze.Rand.seed}`, 20, 20)
+    this.ctx.fillText(`Seed: ${this.game.Rand.seed}`, 20, 20)
     this.ctx.restore()
   }
   drawFog () {
@@ -37,13 +35,15 @@ class UI {
   }
   drawGameVeil () {
     this.ctx.save()
-    this.ctx.fillStyle = `rgba(200, 200, 200, ${this.veil.value > 1 ? 1 : this.veil.value})`
+    this.ctx.fillStyle = `rgba(25, 25, 25, ${this.veil.value > 1 ? 1 : this.veil.value})`
     this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
     this.ctx.restore()
   }
   gameFinished () {
+    if (this.veil.status === 'outro') return // Already finishing
     this.veil.value = 0.00001
     this.veil.status = 'outro'
+    this.game.day++
   }
 }
 

@@ -1,18 +1,19 @@
 import generateMaze from '@/maze_gen'
+import MazeCell from './Cell'
 
 class MazeManager {
-  constructor (game, ctx) {
+  constructor (game, width, height) {
     this.game = game
-    this.ctx = ctx
+    this.ctx = this.game.ctx
     this.seed = Math.floor(new Date() / 100)
-    this.height = ctx.canvas.height / this.game.Cell.size
-    this.width = ctx.canvas.width / this.game.Cell.size
+    this.width = width / MazeCell.size
+    this.height = height / MazeCell.size
     this._maze = generateMaze(this.game.Rand.rand)(this.height, this.width)
     this.maze = []
     for (var col = 0; col < this.height; col++) {
       this.maze[col] = []
       for (var row = 0; row < this.width; row++) {
-        this.maze[col][row] = new this.game.Cell(this.game, row, col, this._maze[col][row])
+        this.maze[col][row] = new MazeCell(this.game, row, col, this._maze[col][row])
       }
     }
   }
