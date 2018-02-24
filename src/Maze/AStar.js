@@ -10,7 +10,7 @@ class AStar {
     }
   }
   search (options) {
-    aStar(Object.join(this.aStarOptions, options))
+    aStar(Object.assign(this.aStarOptions, options))
   }
 }
 
