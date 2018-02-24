@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
     <div id="info" v-if="game">
-      <span>Day {{game.day}}.</span>
       <span>{{game.player.feelings}}</span>
       <span class="seed">Seed: {{game.Rand.seed}}</span>
     </div>

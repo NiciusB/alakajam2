@@ -32,7 +32,7 @@ class FinishPoint {
       y: this.game.Rand.randFromTo(0, this.mazeManager.height)
     }
     const distance = this.player.getCurrentCell().distanceToCell(this.mazeManager.get(randomPoint))
-    if (distance < 40 || distance > 80) return this.getRandomPoint()
+    if (distance < 2 || distance > 2) return this.getRandomPoint()
     return randomPoint
   }
 }

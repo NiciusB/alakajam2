@@ -4,7 +4,7 @@ class UI {
     this.player = this.game.player
     this.ctx = this.game.ctx
     this.veil = {}
-    this.startVeil('intro')
+    this.startVeil('intro', true)
     this.game.onKeyDown(e => { this.keyDown(e) })
   }
   draw () {
@@ -12,9 +12,9 @@ class UI {
     if (this.veil.status !== 'none') {
       switch (this.veil.status) {
         case 'intro':
-          this.veil.value -= 0.02
+          this.veil.value -= 0.01
           if (this.veil.value <= 0) {
-            this.startVeil()
+            this.startVeil('none', true)
           }
           break
         case 'outro':
@@ -22,14 +22,17 @@ class UI {
           if (this.veil.value >= 1.5) {
             this.game.day++
             if (this.game.day <= 3) this.game.newLevel()
-            else this.startVeil('victory')
+            else {
+              this.game.player.feelings = ''
+              this.startVeil('victory', true)
+            }
           }
           break
         case 'lose':
           this.veil.value += 0.03
           break
         case 'victory':
-          this.veil.value += 0.02
+          this.veil.value += 0.03
           break
       }
       this.drawGameVeil()
@@ -51,8 +54,10 @@ class UI {
     if (this.veil.status === 'lose' && this.veil.value > 0.8) {
       this.ctx.fillText(`You died on day ${this.game.day}`, this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 - 15)
       this.ctx.fillText('Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 + 15)
-    } else if (this.veil.status === 'victory' && this.veil.value > 0.8) {
+    } else if (this.veil.status === 'victory') {
       this.ctx.fillText('Congratulations. You escaped the maze. Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2)
+    } else if (this.veil.status === 'intro' && this.veil.value > 0.8) {
+      this.ctx.fillText(`Day ${this.game.day}`, this.ctx.canvas.width / 2, this.ctx.canvas.height / 2)
     }
     this.ctx.restore()
   }
@@ -63,10 +68,10 @@ class UI {
     this.ctx.fillStyle = grd
     this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
   }
-  startVeil (newStatus = 'none') {
-    if (this.veil.status !== newStatus) {
+  startVeil (newStatus = 'none', force = false) {
+    if (force || this.veil.status === 'none') {
       this.veil.status = newStatus
-      this.veil.value = newStatus === 'intro' ? 1 : 0
+      this.veil.value = newStatus === 'intro' ? 2 : (newStatus === 'victory' ? 1 : 0)
     }
   }
   dayFinished () {
@@ -77,6 +82,9 @@ class UI {
   }
   keyDown (e) {
     if (this.veil.status === 'lose' && this.veil.value > 2.5) {
+      this.game.newGame()
+    }
+    if (this.veil.status === 'victory' && this.veil.value > 2.5) {
       this.game.newGame()
     }
   }
