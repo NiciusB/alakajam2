@@ -29,8 +29,8 @@ export default {
   background: #333;
 }
 #game {
-  width: 720px;
-  height: 720px;
+  width: 760px;
+  height: 760px;
   background: rgba(255, 255, 255, 0.1);
 }
 </style>

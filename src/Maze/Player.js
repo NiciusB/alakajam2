@@ -1,14 +1,18 @@
 import Maze from './index'
 
 class Player {
-  constructor (mazeManager, x, y) {
-    this.mazeManager = mazeManager
-    this.ctx = this.mazeManager.ctx
+  constructor (game, x, y) {
+    this.game = game
+    this.ctx = this.game.ctx
     this.size = this.constructor.size
     this.x = x
     this.y = y
     this.centeredX = this.getCenteredPos(this.x)
     this.centeredY = this.getCenteredPos(this.y)
+    this.floatingOffset = {
+      val: 0,
+      dir: 'up'
+    }
     document.addEventListener('keydown', (e) => { this.keyDown(e) })
   }
   draw () {
@@ -17,8 +21,10 @@ class Player {
   }
   drawBody () {
     this.ctx.save()
-    this.ctx.fillStyle = '#00f'
-    this.ctx.fillRect(this.centeredX - this.size / 2, this.centeredY - this.size / 2, this.size, this.size)
+    this.floatingOffset.val += 0.08 * (this.floatingOffset.dir === 'up' ? -1 : 1)
+    if (this.floatingOffset.val < -2) this.floatingOffset.dir = 'down'
+    if (this.floatingOffset.val > 2) this.floatingOffset.dir = 'up'
+    this.ctx.drawImage(this.game.sprites.ghost, this.centeredX - this.size / 2, this.centeredY - this.size / 2 + this.floatingOffset.val, this.size, this.size)
     this.ctx.restore()
   }
   smoothlyMove () {
@@ -40,14 +46,14 @@ class Player {
     }
   }
   getCurrentCell () {
-    return this.mazeManager.get(this.x, this.y)
+    return this.game.mazeManager.get(this.x, this.y)
   }
   getCenteredPos (pos) {
     return pos * Maze.Cell.size + Maze.Cell.size / 2
   }
 
   static get size () {
-    return 20
+    return 40
   }
 }
 

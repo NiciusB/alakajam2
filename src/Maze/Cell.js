@@ -11,6 +11,8 @@ class MazeCell {
     this.canNorth = !internalMazeCell.top
     this.canSouth = !internalMazeCell.bottom
     this.size = this.constructor.size
+    this.sprite = this.game.Rand.randFromTo(0, 30)
+    if (this.sprite > 2) this.sprite = 0
   }
   toString () {
     return `${this.x}.${this.y}`
@@ -34,19 +36,11 @@ class MazeCell {
   draw () {
     this.drawBody()
     // this.drawCoordinates()
-    this.ctx.save()
-    this.ctx.fillStyle = '#fff'
-    if (!this.canWest) this.ctx.fillRect(this.x * this.size, this.y * this.size, 2, this.size)
-    if (!this.canEast) this.ctx.fillRect(this.x * this.size + this.size - 2, this.y * this.size, 2, this.size)
-    if (!this.canNorth) this.ctx.fillRect(this.x * this.size, this.y * this.size, this.size, 2)
-    if (!this.canSouth) this.ctx.fillRect(this.x * this.size, this.y * this.size + this.size - 2, this.size, 2)
-    this.ctx.restore()
+    this.drawWalls()
   }
   drawBody () {
-    this.drawCoordinates()
     this.ctx.save()
-    this.ctx.fillStyle = '#FFB6C1'
-    this.ctx.fillRect(this.x * this.size, this.y * this.size, this.size, this.size)
+    this.ctx.drawImage(this.game.sprites.bg, this.sprite * this.size, 0, this.size, this.size, this.x * this.size, this.y * this.size, this.size, this.size)
     this.ctx.restore()
   }
   drawCoordinates () {
@@ -55,6 +49,15 @@ class MazeCell {
     this.ctx.textBaseline = 'middle'
     this.ctx.fillStyle = '#a1a1a1'
     this.ctx.fillText(`${this.x}.${this.y}`, this.x * this.size + this.size / 2, this.y * this.size + this.size / 2)
+    this.ctx.restore()
+  }
+  drawWalls () {
+    this.ctx.save()
+    this.ctx.fillStyle = '#2f3230'
+    if (!this.canWest) this.ctx.fillRect(this.x * this.size, this.y * this.size, 2, this.size)
+    if (!this.canEast) this.ctx.fillRect(this.x * this.size + this.size - 2, this.y * this.size, 2, this.size)
+    if (!this.canNorth) this.ctx.fillRect(this.x * this.size, this.y * this.size, this.size, 2)
+    if (!this.canSouth) this.ctx.fillRect(this.x * this.size, this.y * this.size + this.size - 2, this.size, 2)
     this.ctx.restore()
   }
   static get size () {

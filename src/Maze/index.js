@@ -20,6 +20,11 @@ export default {
     this.canvas.width = this.canvas.clientWidth
     this.canvas.height = this.canvas.clientHeight
     this.ctx = this.canvas.getContext('2d')
+    this.sprites = {
+      bg: new Image(),
+      ghost: new Image()
+    }
+    for (let key in this.sprites) this.sprites[key].src = `/static/${key}.png`
     this.newLevel()
     this.gameLoop()
   },
@@ -27,7 +32,7 @@ export default {
     this.loadingNewLevel = true
     this.Rand = new Rand()
     this.mazeManager = new MazeManager(this, this.ctx)
-    this.player = new MazePlayer(this.mazeManager, this.Rand.randFromTo(0, this.mazeManager.width), this.Rand.randFromTo(0, this.mazeManager.height))
+    this.player = new MazePlayer(this, Math.round(this.mazeManager.width / 2) - 1, Math.round(this.mazeManager.height / 2) - 1)
     this.finishPoint = new FinishPoint(this, this.mazeManager, this.player)
     this.UI = new UI(this.mazeManager, this.player)
     this.loadingNewLevel = false
