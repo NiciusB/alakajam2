@@ -102,8 +102,8 @@ class Player {
     this.visionRange = 100 + this.energy / 1.5
     if (this.energy < 0) this.game.UI.playerDeath()
     if (this.game.day === 1) {
-      if (this.energy <= 100) this.feelings = ''
-      if (this.energy <= 99) this.feelings = 'You look around trying to understand where you are'
+      if (this.energy === 100) this.feelings = ''
+      if (this.energy < 100) this.feelings = 'You look around trying to understand where you are'
       if (this.energy <= 80) this.feelings = 'You are starting to get tired'
       if (this.energy <= 70) this.feelings = 'There must be a way out'
       if (this.energy <= 50) this.feelings = 'You are feeling really sleepy'
@@ -123,6 +123,7 @@ class Player {
       if (this.energy <= 50) this.feelings = 'So close and yet so far'
       if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
     }
+    document.getElementById('feelingsDiv').innerHTML = this.feelings
   }
   getCurrentCell () {
     return this.game.mazeManager.get(this.x, this.y)

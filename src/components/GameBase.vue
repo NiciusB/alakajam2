@@ -1,8 +1,6 @@
 <template>
   <div class="hello">
-    <div id="info" v-if="game && game.player">
-      <span>{{game.player.feelings}}</span>
-    </div>
+    <div id="feelingsDiv"></div>
     <canvas id="gameCanvas"></canvas>
   </div>
 </template>
@@ -32,7 +30,7 @@ export default {
   background: #333;
   flex-direction: column;
 }
-#info {
+#feelingsDiv {
   width: 520px;
   height: 40px;
   color: #eee;

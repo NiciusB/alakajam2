@@ -15,6 +15,7 @@ class Game {
     this.keyDownCallbacks = []
     this.keyUpCallbacks = []
     this.spritesLoaded = 0
+    this.loaded = false
     this.sprites = {
       bg: new Image(),
       ghost: new Image()
@@ -25,9 +26,10 @@ class Game {
         if (this.spritesLoaded === Object.keys(this.sprites).length) {
           this.newGame()
           this.gameLoop()
+          this.loaded = true
         }
       }
-      this.sprites[key].src = `/static/${key}.png`
+      this.sprites[key].src = `static/${key}.png`
     }
   }
   newGame () {
