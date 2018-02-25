@@ -11,8 +11,8 @@ class MazeCell {
     this.canNorth = !internalMazeCell.top
     this.canSouth = !internalMazeCell.bottom
     this.size = this.constructor.size
-    this.sprite = this.game.Rand.randFromTo(0, 30)
-    if (this.sprite > 2) this.sprite = 0
+    this.sprite = this.game.Rand.randFromTo(0, 40)
+    if (this.sprite > 4) this.sprite = 0
   }
   toString () {
     return `${this.x}.${this.y}`
