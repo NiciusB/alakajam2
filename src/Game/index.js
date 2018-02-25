@@ -16,17 +16,20 @@ class Game {
     }
     for (let key in this.sprites) this.sprites[key].src = `/static/${key}.png`
     document.addEventListener('keydown', (e) => { this.keyDown(e) }, { passive: true })
+    document.addEventListener('keyup', (e) => { this.keyUp(e) }, { passive: true })
     this.newGame()
     this.gameLoop()
   }
   newGame () {
     this.day = 1
+    this.steps = 0
     this.Rand = new Rand()
     this.newLevel()
   }
   newLevel () {
     this.loadingNewLevel = true
     this.keyDownCallbacks = []
+    this.keyUpCallbacks = []
     this.mazeManager = new MazeManager(this, this.canvas.width, this.canvas.height)
     this.player = new MazePlayer(this, Math.round(this.mazeManager.width / 2) - 1, Math.round(this.mazeManager.height / 2) - 1)
     this.finishPoint = new FinishPoint(this, this.mazeManager, this.player)
@@ -44,8 +47,14 @@ class Game {
   onKeyDown (callback) {
     this.keyDownCallbacks.push(callback)
   }
+  onKeyUp (callback) {
+    this.keyUpCallbacks.push(callback)
+  }
   keyDown (e) {
     this.keyDownCallbacks.forEach(val => { val(e) })
+  }
+  keyUp (e) {
+    this.keyUpCallbacks.forEach(val => { val(e) })
   }
 }
 

@@ -33,19 +33,19 @@ export default {
   flex-direction: column;
 }
 #info {
-  width: 560px;
+  width: 520px;
   height: 40px;
   color: #eee;
   background: rgb(25, 25, 25);
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 40px;
   padding: 0 0.5em;
   box-sizing: border-box;
 }
 #gameCanvas {
-  width: 560px;
-  height: 560px;
+  width: 520px;
+  height: 520px;
   background: rgb(25, 25, 25);
 }
 </style>

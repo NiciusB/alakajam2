@@ -55,7 +55,8 @@ class UI {
       this.ctx.fillText(`You died on day ${this.game.day}`, this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 - 15)
       this.ctx.fillText('Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 + 15)
     } else if (this.veil.status === 'victory') {
-      this.ctx.fillText('Congratulations. You escaped the maze. Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2)
+      this.ctx.fillText(`Congratulations. You escaped the maze after ${this.game.steps} steps`, this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 - 15)
+      this.ctx.fillText('Press any key to restart', this.ctx.canvas.width / 2, this.ctx.canvas.height / 2 + 15)
     } else if (this.veil.status === 'intro' && this.veil.value > 0.8) {
       this.ctx.fillText(`Day ${this.game.day}`, this.ctx.canvas.width / 2, this.ctx.canvas.height / 2)
     }

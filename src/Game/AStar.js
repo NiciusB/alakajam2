@@ -16,7 +16,7 @@ class AStar {
           node.west(),
           node.east()
         ].filter(function (item, pos, self) {
-          return self.indexOf(item) === pos
+          return self.indexOf(item) === pos && item !== node
         })
       }
     }, options)
