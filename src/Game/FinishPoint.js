@@ -40,14 +40,11 @@ class FinishPoint {
       y: this.game.Rand.randFromTo(0, this.mazeManager.height)
     }
     const distance = this.game.player.getCurrentCell().distanceToCell(this.mazeManager.get(randomPoint))
-    if (!distance) { // Unable to find path
-      this.game.newLevel()
-      return randomPoint
-    }
-    var maxDistance = 0
+    if (!distance) return {x: -1, y: -1} // Unable to find path
+    var maxDistance = 2
     if (this.game.day === 1) maxDistance = 50
-    else if (this.game.day === 1) maxDistance = 70
-    else if (this.game.day === 1) maxDistance = 90
+    else if (this.game.day === 2) maxDistance = 70
+    else if (this.game.day === 3) maxDistance = 90
     if (distance >= maxDistance * 0.9 && distance <= maxDistance * 1.1) {
       return randomPoint
     } else {

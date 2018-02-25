@@ -39,6 +39,7 @@ class Game {
     this.newLevel()
   }
   newLevel () {
+    console.log(this.day)
     this.loadingNewLevel = true
     this.keyDownCallbacks = []
     this.keyUpCallbacks = []
