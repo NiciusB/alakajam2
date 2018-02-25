@@ -6,19 +6,29 @@ import FinishPoint from './FinishPoint'
 
 class Game {
   constructor () {
+    document.addEventListener('keydown', (e) => { this.keyDown(e) }, { passive: true })
+    document.addEventListener('keyup', (e) => { this.keyUp(e) }, { passive: true })
     this.canvas = document.getElementById('gameCanvas')
     this.canvas.width = this.canvas.clientWidth
     this.canvas.height = this.canvas.clientHeight
     this.ctx = this.canvas.getContext('2d')
+    this.keyDownCallbacks = []
+    this.keyUpCallbacks = []
+    this.spritesLoaded = 0
     this.sprites = {
       bg: new Image(),
       ghost: new Image()
     }
-    for (let key in this.sprites) this.sprites[key].src = `/static/${key}.png`
-    document.addEventListener('keydown', (e) => { this.keyDown(e) }, { passive: true })
-    document.addEventListener('keyup', (e) => { this.keyUp(e) }, { passive: true })
-    this.newGame()
-    this.gameLoop()
+    for (let key in this.sprites) {
+      this.sprites[key].onload = () => {
+        this.spritesLoaded++
+        if (this.spritesLoaded === Object.keys(this.sprites).length) {
+          this.newGame()
+          this.gameLoop()
+        }
+      }
+      this.sprites[key].src = `/static/${key}.png`
+    }
   }
   newGame () {
     this.day = 1

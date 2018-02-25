@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <div id="info" v-if="game">
+    <div id="info" v-if="game && game.player">
       <span>{{game.player.feelings}}</span>
     </div>
     <canvas id="gameCanvas"></canvas>
