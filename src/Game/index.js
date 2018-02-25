@@ -43,10 +43,10 @@ class Game {
     this.keyDownCallbacks = []
     this.keyUpCallbacks = []
     this.mazeManager = new MazeManager(this, this.canvas.width, this.canvas.height)
-    if (!this.mazeManager._maze) return // mazeManager has failed. Stop
+    if (!this.mazeManager._maze) return this.newLevel() // mazeManager has failed. Stop
     this.player = new MazePlayer(this, Math.round(this.mazeManager.width / 2) - 1, Math.round(this.mazeManager.height / 2) - 1)
     this.finishPoint = new FinishPoint(this, this.mazeManager)
-    if (!this.finishPoint.x === -1) return // finishPoint has failed. Stop
+    if (this.finishPoint.x === -1) return this.newLevel() // finishPoint has failed. Stop
     this.UI = new UI(this)
     this.loadingNewLevel = false
   }

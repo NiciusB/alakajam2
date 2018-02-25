@@ -34,7 +34,7 @@ class FinishPoint {
   getCenteredPos (pos) {
     return pos * MazeCell.size + MazeCell.size / 2
   }
-  getRandomPoint () {
+  getRandomPoint (iterationN = 0) {
     const randomPoint = {
       x: this.game.Rand.randFromTo(0, this.mazeManager.width),
       y: this.game.Rand.randFromTo(0, this.mazeManager.height)
@@ -51,8 +51,8 @@ class FinishPoint {
     if (distance >= maxDistance * 0.9 && distance <= maxDistance * 1.1) {
       return randomPoint
     } else {
-      this.game.newLevel()
-      return {x: -1, y: -1}
+      if (iterationN > 50) return {x: -1, y: -1}
+      return this.getRandomPoint(iterationN + 1)
     }
   }
 }

@@ -12,7 +12,6 @@ class MazeManager {
       this._maze = generateMaze(this.game.Rand.rand)(this.height, this.width)
     } catch (e) {
       this._maze = false
-      this.game.newLevel()
       return
     }
     this.maze = []
