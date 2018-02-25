@@ -119,7 +119,7 @@ class Player {
       else if (this.energy <= 70) this.feelings = 'Moving is starting to get harder and harder'
       else if (this.energy <= 97) this.feelings = 'You hear noise in the distance, the exist must be close'
       else if (this.energy <= 98) this.feelings = 'By now you shoulda realized what you gotta do'
-      else if (this.energy <= 99) this.feelings = 'Will they throwing it back yo you?'
+      else if (this.energy <= 99) this.feelings = 'Will they be throwing it back yo you?'
       else if (this.energy <= 100) this.feelings = 'You feel like today is gonna be the day'
     }
     document.getElementById('feelingsDiv').innerHTML = this.feelings
