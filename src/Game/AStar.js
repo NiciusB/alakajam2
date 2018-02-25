@@ -9,6 +9,7 @@ class AStar {
       distance (node1, node2) {
         return 1
       },
+      timeout: 500,
       neighbor (node) {
         return [
           node.north(),

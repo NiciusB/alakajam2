@@ -31,7 +31,7 @@ class MazeCell {
   }
   distanceToCell (otherCell) {
     const search = new AStar().cellToCell(this, otherCell)
-    return search.path.length
+    return search.status === 'success' ? search.path.length : false
   }
   draw () {
     this.drawBody()
