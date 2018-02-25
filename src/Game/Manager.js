@@ -8,7 +8,13 @@ class MazeManager {
     this.seed = Math.floor(new Date() / 100)
     this.width = width / MazeCell.size
     this.height = height / MazeCell.size
-    this._maze = generateMaze(this.game.Rand.rand)(this.height, this.width)
+    try {
+      this._maze = generateMaze(this.game.Rand.rand)(this.height, this.width)
+    } catch (e) {
+      this._maze = false
+      this.game.newLevel()
+      return
+    }
     this.maze = []
     for (var col = 0; col < this.height; col++) {
       this.maze[col] = []

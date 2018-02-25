@@ -1,10 +1,9 @@
 import MazeCell from './Cell'
 
 class FinishPoint {
-  constructor (game, mazeManager, player) {
+  constructor (game, mazeManager) {
     this.game = game
     this.mazeManager = mazeManager
-    this.player = player
     this.ctx = this.mazeManager.ctx
     const randomPoint = this.getRandomPoint()
     this.x = randomPoint.x
@@ -20,7 +19,7 @@ class FinishPoint {
     if (this.sizeOffset.val < -1.2) this.sizeOffset.dir = 'down'
     if (this.sizeOffset.val > 1.2) this.sizeOffset.dir = 'up'
     this.drawBody()
-    if (this.x === this.player.x && this.y === this.player.y) {
+    if (this.x === this.game.player.x && this.y === this.game.player.y) {
       this.game.UI.dayFinished()
     }
   }
@@ -40,17 +39,20 @@ class FinishPoint {
       x: this.game.Rand.randFromTo(0, this.mazeManager.width),
       y: this.game.Rand.randFromTo(0, this.mazeManager.height)
     }
-    const distance = this.player.getCurrentCell().distanceToCell(this.mazeManager.get(randomPoint))
+    const distance = this.game.player.getCurrentCell().distanceToCell(this.mazeManager.get(randomPoint))
     if (!distance) { // Unable to find path
       this.game.newLevel()
       return randomPoint
     }
-    const maxDistance = this.game.day === 1 ? 50 : (this.game.day === 2 ? 70 : 90)
-    if (distance > maxDistance * 0.8 && distance <= maxDistance) {
+    var maxDistance = 0
+    if (this.game.day === 1) maxDistance = 50
+    else if (this.game.day === 1) maxDistance = 70
+    else if (this.game.day === 1) maxDistance = 90
+    if (distance >= maxDistance * 0.9 && distance <= maxDistance * 1.1) {
       return randomPoint
     } else {
       this.game.newLevel()
-      return randomPoint
+      return {x: -1, y: -1}
     }
   }
 }
