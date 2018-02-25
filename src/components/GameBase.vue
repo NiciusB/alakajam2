@@ -2,7 +2,6 @@
   <div class="hello">
     <div id="info" v-if="game">
       <span>{{game.player.feelings}}</span>
-      <span class="seed">Seed: {{game.Rand.seed}}</span>
     </div>
     <canvas id="gameCanvas"></canvas>
   </div>
@@ -36,15 +35,13 @@ export default {
 #info {
   width: 560px;
   height: 40px;
-  color: rgb(200, 200, 200);
+  color: #eee;
   background: rgb(25, 25, 25);
+  text-align: center;
+  font-size: 18px;
   line-height: 40px;
   padding: 0 0.5em;
   box-sizing: border-box;
-  .seed {
-    float: right;
-    font-size: 0.6em;
-  }
 }
 #gameCanvas {
   width: 560px;
