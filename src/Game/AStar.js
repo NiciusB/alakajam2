@@ -23,13 +23,19 @@ class AStar {
     }, options)
   }
   search (options = {}) {
-    return aStar(Object.assign(this.aStarOptions, options))
+    var result = { status: 'error' }
+    try {
+      result = aStar(Object.assign(this.aStarOptions, options))
+    } catch (e) {
+      console.log(e)
+    }
+    return result
   }
   cellToCell (cell1, cell2) {
-    return aStar(Object.assign(this.aStarOptions, {
+    return this.search({
       start: cell1,
       isEnd: node => node === cell2
-    }))
+    })
   }
 }
 

@@ -30,7 +30,6 @@ class FinishPoint {
     this.ctx.beginPath()
     this.ctx.arc(this.getCenteredPos(this.x), this.getCenteredPos(this.y), this.size + this.sizeOffset.val, 0, 2 * Math.PI, false)
     this.ctx.fill()
-    // this.ctx.fillRect(this.getCenteredPos(this.x) - this.size / 2, this.getCenteredPos(this.y) - this.size / 2, this.size, this.size)
     this.ctx.restore()
   }
   getCenteredPos (pos) {
@@ -46,9 +45,13 @@ class FinishPoint {
       this.game.newLevel()
       return randomPoint
     }
-    const maxDistance = this.game.day === 0 ? 20 : (this.game.day === 0 ? 40 : 70)
-    if (distance < maxDistance * 0.8 || distance > maxDistance) return this.getRandomPoint()
-    return randomPoint
+    const maxDistance = this.game.day === 1 ? 50 : (this.game.day === 2 ? 70 : 90)
+    if (distance > maxDistance * 0.8 && distance <= maxDistance) {
+      return randomPoint
+    } else {
+      this.game.newLevel()
+      return randomPoint
+    }
   }
 }
 

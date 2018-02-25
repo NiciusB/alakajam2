@@ -97,31 +97,30 @@ class Player {
       this.loseEnergy()
     }
   }
-  loseEnergy (howMuch = 0.65) {
+  loseEnergy (howMuch = 0.7) {
     this.energy -= howMuch
-    this.visionRange = 100 + this.energy / 1.5
+    this.visionRange = 80 + this.energy / 1.25
     if (this.energy < 0) this.game.UI.playerDeath()
     if (this.game.day === 1) {
-      if (this.energy === 100) this.feelings = ''
-      if (this.energy < 100) this.feelings = 'You look around trying to understand where you are'
-      if (this.energy <= 80) this.feelings = 'You are starting to get tired'
-      if (this.energy <= 70) this.feelings = 'There must be a way out'
-      if (this.energy <= 50) this.feelings = 'You are feeling really sleepy'
       if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
+      else if (this.energy <= 50) this.feelings = 'You are feeling really sleepy'
+      else if (this.energy <= 70) this.feelings = 'There must be a way out'
+      else if (this.energy <= 80) this.feelings = 'You are starting to get tired'
+      else if (this.energy <= 100) this.feelings = 'You look around trying to understand where you are'
     } else if (this.game.day === 2) {
-      if (this.energy <= 100) this.feelings = 'You feel rested, but everything looks the same'
-      if (this.energy <= 80) this.feelings = 'You are starting to get tired again'
-      if (this.energy <= 70) this.feelings = 'Is there a way out of this place?'
-      if (this.energy <= 50) this.feelings = 'You know you\'re close'
       if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
+      else if (this.energy <= 50) this.feelings = 'You know you\'re close'
+      else if (this.energy <= 70) this.feelings = 'Is there a way out of this place?'
+      else if (this.energy <= 80) this.feelings = 'You are starting to get tired again'
+      else if (this.energy <= 100) this.feelings = 'You feel rested, but everything looks the same'
     } else if (this.game.day === 3) {
-      if (this.energy <= 100) this.feelings = 'You feel like today is gonna be the day'
-      if (this.energy <= 99) this.feelings = 'Will they throwing it back yo you?'
-      if (this.energy <= 98) this.feelings = 'By now you shoulda realized what you gotta do'
-      if (this.energy <= 97) this.feelings = 'You hear noise in the distance, the exist must be close'
-      if (this.energy <= 70) this.feelings = 'Moving is starting to get harder and harder'
-      if (this.energy <= 50) this.feelings = 'So close and yet so far'
       if (this.energy <= 10) this.feelings = 'You eyes won\'t be open for much longer'
+      else if (this.energy <= 50) this.feelings = 'So close and yet so far'
+      else if (this.energy <= 70) this.feelings = 'Moving is starting to get harder and harder'
+      else if (this.energy <= 97) this.feelings = 'You hear noise in the distance, the exist must be close'
+      else if (this.energy <= 98) this.feelings = 'By now you shoulda realized what you gotta do'
+      else if (this.energy <= 99) this.feelings = 'Will they throwing it back yo you?'
+      else if (this.energy <= 100) this.feelings = 'You feel like today is gonna be the day'
     }
     document.getElementById('feelingsDiv').innerHTML = this.feelings
   }
